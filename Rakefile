@@ -17,10 +17,11 @@ Jeweler::Tasks.new do |gem|
   gem.name = "confinicky"
   gem.homepage = "http://github.com/jimjeffers/confinicky"
   gem.license = "MIT"
-  gem.summary = %Q{TODO: one-line summary of your gem}
-  gem.description = %Q{TODO: longer description of your gem}
+  gem.summary = "A simple CLI to manage environment variables on your local machine."
+  gem.description = "A CLI that allows you to perform basic CRUD for your environment variables."
   gem.email = "jim@sumocreations.com"
   gem.authors = ["Jim Jeffers"]
+  gem.executables = ['confinicky']
   # dependencies defined in Gemfile
 end
 Jeweler::RubygemsDotOrgTasks.new

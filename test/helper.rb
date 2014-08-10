@@ -8,7 +8,7 @@ end
 
 SimpleCov.configure do
   clean_filters
-  load_adapter 'test_frameworks'
+  load_profile 'test_frameworks'
 end
 
 ENV["COVERAGE"] && SimpleCov.start do
@@ -23,12 +23,15 @@ rescue Bundler::BundlerError => e
   $stderr.puts "Run `bundle install` to install missing gems"
   exit e.status_code
 end
-require 'test/unit'
-require 'shoulda'
 
-$LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
+gem "minitest"
+require 'minitest/autorun'
+
 $LOAD_PATH.unshift(File.dirname(__FILE__))
+$LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
 require 'confinicky'
 
-class Test::Unit::TestCase
+class MiniTest::Unit::Test
 end
+
+MiniTest.autorun
