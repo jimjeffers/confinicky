@@ -28,6 +28,7 @@ Gem::Specification.new do |s|
     "Rakefile",
     "VERSION",
     "bin/confinicky",
+    "confinicky.gemspec",
     "lib/confinicky.rb",
     "lib/confinicky/commands.rb",
     "lib/confinicky/commands/clean.rb",
