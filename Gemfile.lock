@@ -63,8 +63,8 @@ PLATFORMS
 DEPENDENCIES
   bundler (~> 1.0)
   commander (~> 4.1)
-  jeweler (~> 2.0.1)
-  minitest
+  jeweler (~> 2.0)
+  minitest (~> 5.4)
   rdoc (~> 3.12)
-  simplecov
+  simplecov (~> 0.9)
   terminal-table (~> 1.4)
