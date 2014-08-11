@@ -1,4 +1,4 @@
-# Confinicky [![Build Status](https://travis-ci.orgjimjeffers/confinicky.png)](https://travis-ci.orgjimjeffers/confinicky) [![Code Climate](https://codeclimate.com/githubjimjeffers/confinicky.png)](https://codeclimate.com/githubjimjeffers/confinicky) [![Inline docs](http://inch-ci.org/githubjimjeffers/confinicky.png)](http://inch-ci.org/githubjimjeffers/confinicky)
+# Confinicky [![Build Status](https://travis-ci.org/jimjeffers/confinicky.png)](https://travis-ci.org/jimjeffers/confinicky) [![Code Climate](https://codeclimate.com/github/jimjeffers/confinicky.png)](https://codeclimate.com/github/jimjeffers/confinicky) [![Inline docs](http://inch-ci.org/github/jimjeffers/confinicky.png)](http://inch-ci.org/github/jimjeffers/confinicky)
 
 A simple CLI to manage your environment variables.
 
