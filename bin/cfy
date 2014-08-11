@@ -9,6 +9,7 @@ require 'confinicky'
 HighLine.track_eof = false # Fix for built-in Ruby
 Signal.trap("INT") {} # Suppress backtrace when exiting command
 
+program :name, "Confinicky"
 program :version, Confinicky::Version::STRING
 program :description, 'A command-line interface for managing your shell environment variables.'
 
