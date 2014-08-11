@@ -1,4 +1,4 @@
-class Confinicky
+module Confinicky
   module Version
     MAJOR = 0
     MINOR = 1
