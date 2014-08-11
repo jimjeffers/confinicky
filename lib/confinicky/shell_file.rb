@@ -1,9 +1,15 @@
 require 'fileutils'
 
 module Confinicky
+  ##
+  # A model that loads and represents a shell file.
   class ShellFile
 
+    ##
+    # The preserved lines of code from the shell file which confinicky
+    # will write back to the new shell file in the order they were received.
     attr_reader :lines
+
     attr_reader :exports
     ##
     # References the actual file path from the shell configuration.
