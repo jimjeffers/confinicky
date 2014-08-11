@@ -2,6 +2,8 @@
 
 require 'rubygems'
 require 'bundler'
+require './lib/confinicky/version.rb'
+
 begin
   Bundler.setup(:default, :development)
 rescue Bundler::BundlerError => e
@@ -22,6 +24,7 @@ Jeweler::Tasks.new do |gem|
   gem.email = "jim@sumocreations.com"
   gem.authors = ["Jim Jeffers"]
   gem.executables = ['cfy']
+  gem.version = Confinicky::Version::STRING
   # dependencies defined in Gemfile
 end
 Jeweler::RubygemsDotOrgTasks.new
