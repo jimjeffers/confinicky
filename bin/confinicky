@@ -1,22 +1,5 @@
 #!/usr/bin/env ruby
 
-require 'commander/import'
-require 'terminal-table'
-
 $:.push File.expand_path("../../lib", __FILE__)
 
-require 'confinicky'
-
-HighLine.track_eof = false # Fix for built-in Ruby
-Signal.trap("INT") {} # Suppress backtrace when exiting command
-
-program :version, "0.1.2"
-program :description, 'A command-line interface for managing your shell environment variables.'
-
-program :help, 'Author', 'Jim Jeffers <jim@sumocreations.com>'
-program :help, 'Website', 'https://github.com/jimjeffers'
-program :help_formatter, :compact
-
-default_command :help
-
-require 'confinicky/commands'
+require 'confinicky/boot'
