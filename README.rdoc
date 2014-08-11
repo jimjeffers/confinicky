@@ -1,5 +1,7 @@
-[<img src="https://secure.travis-ci.org/jimjeffers/confinicky.png?branch=master" alt="Build Status" />](http://travis-ci.org/jimjeffers/confinicky)
-[![Inline docs](http://inch-ci.org/github/jimjeffers/confinicky.png)](http://inch-ci.org/github/jimjeffers/confinicky)
+=begin html
+<a href="http://travis-ci.org/jimjeffers/confinicky"><img src="https://secure.travis-ci.org/jimjeffers/confinicky.png?branch=master" alt="Build Status" /></a>
+<a href="http://inch-ci.org/github/jimjeffers/confinicky">http://inch-ci.org/github/jimjeffers/confinicky.png</a>
+=end
 
 = confinicky
 
