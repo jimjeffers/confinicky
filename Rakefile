@@ -21,7 +21,7 @@ Jeweler::Tasks.new do |gem|
   gem.description = "A CLI that allows you to perform basic CRUD for your environment variables."
   gem.email = "jim@sumocreations.com"
   gem.authors = ["Jim Jeffers"]
-  gem.executables = ['confinicky']
+  gem.executables = ['confinicky', 'cfy']
   # dependencies defined in Gemfile
 end
 Jeweler::RubygemsDotOrgTasks.new
