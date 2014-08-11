@@ -4,14 +4,13 @@ require 'commander/import'
 require 'terminal-table'
 
 $:.push File.expand_path("../../lib", __FILE__)
-$:.push File.expand_path("../", __FILE__)
 
 require 'confinicky'
 
 HighLine.track_eof = false # Fix for built-in Ruby
 Signal.trap("INT") {} # Suppress backtrace when exiting command
 
-program :version, File.exist?('VERSION') ? File.read('VERSION') : "0.1.0"
+program :version, File.exist?('../VERSION') ? File.read('../VERSION') : "0.0.0"
 program :description, 'A command-line interface for managing your shell environment variables.'
 
 program :help, 'Author', 'Jim Jeffers <jim@sumocreations.com>'

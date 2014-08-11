@@ -5,12 +5,15 @@ command :list do |c|
   c.example 'description', 'confinicky list'
 
   c.action do |args, options|
+
     if Confinicky::ShellFile.has_path?
       say_error "Please set '#{Confinicky::FILE_PATH_VAR}' to point to your local configuration file."
       puts "Try running 'confinicky use' for more info."
       abort
     end
+
     shell_file = Confinicky::ShellFile.new
+
     table = Terminal::Table.new do |t|
       for export in shell_file.exports
         if export[1].length > 100
@@ -21,6 +24,7 @@ command :list do |c|
       end
     end
     puts table
+
     say_ok "Identified #{shell_file.exports.length} exports in #{Confinicky::ShellFile.file_path}"
   end
 end

@@ -23,6 +23,7 @@ command :remove do |c|
     if shell_file.remove!(args.first)
       say_ok "Successfully removed '#{args.first}'."
       puts "Run 'source #{Confinicky::ShellFile.file_path}' or open a new terminal/shell window."
+      shell_file.write!
     else
       say_error "Could not remove '#{args.first}' please double check to ensure you used the appropriate syntax."
     end
