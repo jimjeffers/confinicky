@@ -1,9 +1,21 @@
 require 'helper'
 
-class TestConfinicky < MiniTest::Unit::Test
+class TestConfinicky < MiniTest::Test
 
-  def test_something_for_real
-    flunk "hey buddy, you should probably rename this file and start testing for real"
+  def setup
+    @shell_file = Confinicky::ShellFile.new(file_path: 'test/sample_bash_file.sh')
+  end
+
+  def test_shell_file_duplicates
+    assert_equal 1, @shell_file.find_duplicates.length
+  end
+
+  def test_exports_without_assignments
+    assert_includes @shell_file.lines, "export DISPLAY\n"
+  end
+
+  def test_detects_exports_with_assignment
+    assert_equal 18, @shell_file.exports.length
   end
 
 end

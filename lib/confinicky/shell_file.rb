@@ -3,6 +3,8 @@ require 'fileutils'
 module Confinicky
   class ShellFile
 
+    attr_reader :lines
+    attr_reader :exports
     ##
     # References the actual file path from the shell configuration.
     def self.file_path
@@ -31,16 +33,21 @@ module Confinicky
 
     ##
     # Parses the configuration file if it exists.
-    def initialize
-      raise "Config file not found. Please set" if !Confinicky::ShellFile.exists?
+    def initialize(file_path: Confinicky::ShellFile.file_path)
+      raise "Config file not found. Please set" if !File.exists?(@file_path = file_path)
       @exports = []
       @lines = []
-      file = File.new(Confinicky::ShellFile.file_path, "r")
+
+      file = File.new(@file_path, "r")
 
       while (line = file.gets)
         if line =~ /\Aexport /
           export = line.gsub(/\Aexport /,"").split("=")
-          @exports << [export[0], export[1].gsub(/\n/, "")]
+          if export[1].nil?
+            @lines << line
+          else
+            @exports << [export[0], export[1].gsub(/\n/, "")]
+          end
         else
           @lines << line
         end
@@ -83,6 +90,7 @@ module Confinicky
       assignment = assignment.split("=")
       return false if assignment.length < 2
       remove! assignment[0]
+      assignment[1] = "\'#{assignment[1]}\'" if assignment[1] =~ /\s/
       @exports << assignment
     end
 
@@ -95,12 +103,18 @@ module Confinicky
     ##
     # Writes a new version of the configuration file.
     def write!
-      File.open(Confinicky::ShellFile.file_path, "w") do |f|
+      File.open(@file_path, "w") do |f|
         for line in @lines
           f.write line
         end
         f.puts @exports.map{|e| "export #{e.join("=")}"}.join("\n")
       end
+    end
+
+    ##
+    # Returns the file path for the current instance of the shell file class.
+    def file_path
+      @file_path
     end
 
   end
