@@ -10,7 +10,7 @@ require 'confinicky'
 HighLine.track_eof = false # Fix for built-in Ruby
 Signal.trap("INT") {} # Suppress backtrace when exiting command
 
-program :version, File.exist?('../VERSION') ? File.read('../VERSION') : "0.0.0"
+program :version, "0.1.2"
 program :description, 'A command-line interface for managing your shell environment variables.'
 
 program :help, 'Author', 'Jim Jeffers <jim@sumocreations.com>'
