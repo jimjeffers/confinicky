@@ -1,13 +1,13 @@
 command :set do |c|
-  c.syntax = 'confinicky set'
+  c.syntax = 'cfy set'
   c.summary = 'Sets an environment variable in your configuration file.'
   c.description = ''
-  c.example 'description', 'confinicky set MY_VAR="some value"'
+  c.example 'description', 'cfy set MY_VAR="some value"'
 
   c.action do |args, options|
     if Confinicky::ShellFile.has_path?
       say_error "Please set '#{Confinicky::FILE_PATH_VAR}' to point to your local configuration file."
-      puts "Try running 'confinicky use' for more info."
+      puts "Try running 'cfy use' for more info."
       abort
     end
 
@@ -16,9 +16,11 @@ command :set do |c|
     duplicate_count = shell_file.find_duplicates.length
     if duplicate_count > 0
       say_error "Your configuration cannot be managed because it currently has duplicate export statements."
-      puts "You must run 'confinicky clean' before you can manage your configuration."
+      puts "You must run 'cfy clean' before you can manage your configuration."
       abort
     end
+
+    say_error "You must supply an expression such as: MY_VAR=\"some value\"" and about if args.first.nil?
 
     if shell_file.set!(args.first)
       shell_file.write!

@@ -1,14 +1,14 @@
 command :list do |c|
-  c.syntax = 'confinicky list'
+  c.syntax = 'cfy list'
   c.summary = 'Generates a list of all environment variables set in your configuration file.'
   c.description = ''
-  c.example 'description', 'confinicky list'
+  c.example 'description', 'cfy list'
 
   c.action do |args, options|
 
     if Confinicky::ShellFile.has_path?
       say_error "Please set '#{Confinicky::FILE_PATH_VAR}' to point to your local configuration file."
-      puts "Try running 'confinicky use' for more info."
+      puts "Try running 'cfy use' for more info."
       abort
     end
 

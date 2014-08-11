@@ -2,14 +2,14 @@ command :use do |c|
   c.syntax = 'confinicky use'
   c.summary = 'Appends the confinicky file path shell variable to your configuration.'
   c.description = ''
-  c.example 'description', 'confinicky use /User/[YOUR_USER_NAME]/.bashrc'
+  c.example 'description', 'cfy use /User/[YOUR_USER_NAME]/.bashrc'
 
   c.action do |args, options|
     @file_path = args.first
 
     if @file_path.nil?
       say_error "You must specify a path. See example:"
-      puts 'confinicky use /User/[YOUR_USER_NAME]/.bashrc'
+      puts 'cfy use /User/[YOUR_USER_NAME]/.bashrc'
       abort
     end
 

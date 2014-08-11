@@ -1,13 +1,13 @@
 command :clean do |c|
-  c.syntax = 'confinicky clean'
+  c.syntax = 'cfy clean'
   c.summary = 'Removes all duplicate export statements in the configuration file.'
   c.description = ''
-  c.example 'description', 'confinicky clean'
+  c.example 'description', 'cfy clean'
 
   c.action do |args, options|
     if Confinicky::ShellFile.has_path?
       say_error "Please set '#{Confinicky::FILE_PATH_VAR}' to point to your local configuration file."
-      puts "Try running 'confinicky use' for more info."
+      puts "Try running 'cfy use' for more info."
       abort
     end
     shell_file = Confinicky::ShellFile.new
