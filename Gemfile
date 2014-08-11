@@ -1,4 +1,3 @@
-ruby '2.1.2'
 source "http://rubygems.org"
 # Add dependencies required to use your gem here.
 # Example:
