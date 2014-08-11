@@ -2,7 +2,7 @@
 
 A simple CLI to manage your environment variables.
 
-Run `conficky --help` for a current list of useable commands.
+Run `cfy --help` for a current list of useable commands.
 
 ## Setup Confinicky
 
