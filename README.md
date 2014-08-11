@@ -8,7 +8,8 @@ Run `conficky --help` for a current list of useable commands.
 
 You can easily see all of your environment variables using `cfy list` or `cfy ls`.
 
-`→ cfy ls
+```
+→ cfy ls
 +-----------------------+---------------------------------------------------------------------------------------------------------+
 | CONFINICKY_FILE_PATH  | /Users/jim/bin/dotfiles/bash/env                                                                        |
 | DOCKER_HOST           | tcp://192.168.59.103:2375                                                                               |
@@ -22,7 +23,8 @@ You can easily see all of your environment variables using `cfy list` or `cfy ls
 | PGDATA                | /usr/local/var/postgres                                                                                 |
 | PYTHONPATH            | /usr/local/lib/python2.7/site-packages:$PYTHONPATH                                                      |
 | VCPROMPT_FORMAT       | "[%n:%b](%m%u)"                                                                                         |
-+-----------------------+---------------------------------------------------------------------------------------------------------+`
++-----------------------+---------------------------------------------------------------------------------------------------------+
+```
 
 ## Contributing to confinicky
 
