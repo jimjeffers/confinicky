@@ -58,7 +58,7 @@ You can easily add or adjust an environment variable using `cfy remove` or `cfy 
 ```
 → cfy remove MY_VAR
 Successfully removed 'MY_VAR'.
-Run 'source /Users/jim/bin/dotfiles/bash/env' or open a new terminal/shell window.
+Open a new terminal/shell window for this change to take affect.
 ```
 
 ## Detecting Duplicate Exports
