@@ -4,6 +4,21 @@ A simple CLI to manage your environment variables.
 
 Run `conficky --help` for a current list of useable commands.
 
+## Setup Confinicky
+
+First, install the gem: 
+
+```
+→ gem install confinicky
+```
+
+Next, setup confinicky to use your `.bashrc`, `.bash_profile`, or my personal favorite, an external file just for environment variables that you source in your bash_profile. For example I keep mine in a file called `env` and then run `source env` in my `.bash_profile`.
+
+```
+→ cfy use /Users/jim/bin/dotfiles/bash/env
+Set CONFINICKY_FILE_PATH to /Users/jim/bin/dotfiles/bash/env
+```
+
 ## Listing Environment Variables
 
 You can easily see all of your environment variables using `cfy list` or `cfy ls`.
@@ -24,6 +39,53 @@ You can easily see all of your environment variables using `cfy list` or `cfy ls
 | PYTHONPATH            | /usr/local/lib/python2.7/site-packages:$PYTHONPATH                                                      |
 | VCPROMPT_FORMAT       | "[%n:%b](%m%u)"                                                                                         |
 +-----------------------+---------------------------------------------------------------------------------------------------------+
+```
+
+## Creating / Setting an Environment Variable
+
+You can easily add or adjust an environment variable using `cfy set` which expects a parameter such as `MY_VAR=value`.
+
+```
+→ cfy set DOCKER_HOST=tcp://192.168.59.103:2375
+Successfully set 'DOCKER_HOST=tcp://192.168.59.103:2375'.
+Run 'source /Users/jim/bin/dotfiles/bash/env' or open a new terminal/shell window.
+```
+
+## Removing an Environment Variable 
+
+You can easily add or adjust an environment variable using `cfy remove` or `cfy rm`.
+
+```
+→ cfy remove MY_VAR
+Successfully removed 'MY_VAR'.
+Run 'source /Users/jim/bin/dotfiles/bash/env' or open a new terminal/shell window.
+```
+
+## Detecting Duplicate Exports
+
+If your environment files have turned into a junk drawer with PATH getting defined multiple times throughout the file or otherwise, you can get a summary by running `cfy duplicates`.
+
+```
+→ cfy duplicates
++----------+---+
+| PATH     | 7 |
+| MANPATH  | 3 |
+| INFOPATH | 3 |
++----------+---+
+Identified 3 variables with multiple 'export' statements in /Users/jim/bin/dotfiles/bash/env
+Run 'cfy clean' to reduce these statements.
+```
+
+## Cleaning Duplicate Exports
+
+You can run `cfy clean` which replaces multiple export declarations with the actual value of the environment variable.
+
+```
+→ cfy clean
+Backup your existing file before continuuing? (y/n)
+y
+Backup saved to: /Users/jim/bin/dotfiles/bash/env1407782855.bak.tmp
+Your file is clean. 3 duplicate statements have been reduced.
 ```
 
 ## Contributing to confinicky
