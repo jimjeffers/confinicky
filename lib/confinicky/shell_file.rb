@@ -6,6 +6,10 @@ module Confinicky
   class ShellFile
 
     ##
+    # The alias commands stored in the shell file.
+    attr_reader :aliases
+
+    ##
     # The preserved lines of code from the shell file which confinicky
     # will write back to the new shell file in the order they were received.
     attr_reader :lines
@@ -42,21 +46,16 @@ module Confinicky
     def initialize(file_path: Confinicky::ShellFile.file_path)
       raise "Config file not found. Please set" if !File.exists?(@file_path = file_path)
       @exports = []
+      @aliases = []
       @lines = []
 
       file = File.new(@file_path, "r")
 
       while (line = file.gets)
-        if line =~ /\Aexport /
-          export = line.gsub(/\Aexport /,"").split("=")
-          if export[1].nil?
-            @lines << line
-          else
-            @exports << [export[0], export[1].gsub(/\n/, "")]
-          end
-        else
-          @lines << line
-        end
+        command = Confinicky::CommandParser.new(line: line)
+        @lines << line if command.line?
+        @exports << command.values_array if command.export?
+        @aliases << command.values_array if command.alias?
       end
 
       file.close()

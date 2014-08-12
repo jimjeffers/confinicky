@@ -18,4 +18,8 @@ class TestConfinicky < MiniTest::Test
     assert_equal 18, @shell_file.exports.length
   end
 
+  def test_detects_aliases_with_assignment
+    assert_equal 32, @shell_file.aliases.length
+  end
+
 end
