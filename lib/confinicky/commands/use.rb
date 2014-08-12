@@ -1,8 +1,8 @@
 command :use do |c|
-  c.syntax = 'confinicky use'
+  c.syntax = 'cfy use'
   c.summary = 'Appends the confinicky file path shell variable to your configuration.'
   c.description = ''
-  c.example 'description', 'cfy use /User/[YOUR_USER_NAME]/.bashrc'
+  c.example 'Set a file:', 'cfy use /User/[YOUR_USER_NAME]/.bashrc'
 
   c.action do |args, options|
     @file_path = args.first
