@@ -123,5 +123,22 @@ module Confinicky
       @file_path
     end
 
+    ##
+    # Returns a terminal table summarizing all known environment variables, otherwise
+    # returns nil if no environment variables exist.
+    def exports_table
+      return nil if @exports.length < 1
+      table = Terminal::Table.new(title: "Environment Variables", headings: ['Name', 'Value']) do |t|
+        for export in @exports
+          if export[1].length > 100
+            t.add_row [export[0], export[1][0...100]+"..."]
+          else
+            t.add_row export
+          end
+        end
+      end
+      return table
+    end
+
   end
 end

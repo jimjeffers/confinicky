@@ -14,16 +14,7 @@ command :list do |c|
 
     shell_file = Confinicky::ShellFile.new
 
-    table = Terminal::Table.new do |t|
-      for export in shell_file.exports
-        if export[1].length > 100
-          t.add_row [export[0], export[1][0...100]+"..."]
-        else
-          t.add_row export
-        end
-      end
-    end
-    puts table
+    puts shell_file.exports_table unless shell_file.exports_table.nil?
 
     say_ok "Identified #{shell_file.exports.length} exports in #{Confinicky::ShellFile.file_path}"
   end
