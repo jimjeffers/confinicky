@@ -1,4 +1,5 @@
 require 'confinicky/version'
 require 'confinicky/config'
+require 'confinicky/configuration_file'
 require 'confinicky/shell_file'
 require 'confinicky/command_parser'

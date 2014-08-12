@@ -1,6 +1,7 @@
 require 'fileutils'
 
 module Confinicky
+
   ##
   # A model that loads and represents a shell file.
   class ShellFile
@@ -19,34 +20,8 @@ module Confinicky
     attr_reader :file_path
 
     ##
-    # References the actual file path from the shell configuration.
-    def self.file_path
-      ENV[Confinicky::Variables::FILE_PATH]
-    end
-
-    ##
-    # Returns true if the file path has been configured in the environment.
-    def self.has_path?
-      self.file_path.nil?
-    end
-
-    ##
-    # Returns true if the file actually exists.
-    def self.exists?
-      File.exists? ENV[Confinicky::Variables::FILE_PATH]
-    end
-
-    ##
-    # Copies the current shell file to a temporary location.
-    def self.backup!
-      backup_name = Confinicky::ShellFile.file_path+Time.now.getutc.to_i.to_s+".bak.tmp"
-      FileUtils.cp(Confinicky::ShellFile.file_path, backup_name)
-      backup_name
-    end
-
-    ##
     # Parses the configuration file if it exists.
-    def initialize(file_path: Confinicky::ShellFile.file_path)
+    def initialize(file_path: "")
       raise "Config file not found. Please set" if !File.exists?(@file_path = file_path)
       @exports = []
       @aliases = []
@@ -89,6 +64,14 @@ module Confinicky
         @exports << [duplicate, ENV[duplicate]]
       end
       write!
+    end
+
+    ##
+    # Copies the current shell file to a temporary location.
+    def backup!
+      backup_name = Confinicky::ShellFile.file_path+Time.now.getutc.to_i.to_s+".bak.tmp"
+      FileUtils.cp(Confinicky::ShellFile.file_path, backup_name)
+      backup_name
     end
 
     ##
