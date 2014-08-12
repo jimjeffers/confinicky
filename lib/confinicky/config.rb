@@ -1,4 +1,12 @@
 module Confinicky
-  FILE_PATH_VAR = "CONFINICKY_FILE_PATH"
-  MANAGED_COMMENT_TEXT = "EXPORTS MANAGED BY CONFINICKY"
+
+  module Variables
+    FILE_PATH = "CONFINICKY_FILE_PATH"
+  end
+
+  module Arguments
+    ENVIRONMENT = "env"
+    ALIAS = "alias"
+  end
+
 end

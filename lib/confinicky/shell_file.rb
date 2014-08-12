@@ -14,11 +14,14 @@ module Confinicky
     # will write back to the new shell file in the order they were received.
     attr_reader :lines
 
-    attr_reader :exports
+    ##
+    # Returns the file path for the current instance of the shell file class.
+    attr_reader :file_path
+
     ##
     # References the actual file path from the shell configuration.
     def self.file_path
-      ENV[Confinicky::FILE_PATH_VAR]
+      ENV[Confinicky::Variables::FILE_PATH]
     end
 
     ##
@@ -30,7 +33,7 @@ module Confinicky
     ##
     # Returns true if the file actually exists.
     def self.exists?
-      File.exists? ENV[Confinicky::FILE_PATH_VAR]
+      File.exists? ENV[Confinicky::Variables::FILE_PATH]
     end
 
     ##
@@ -52,7 +55,7 @@ module Confinicky
       file = File.new(@file_path, "r")
 
       while (line = file.gets)
-        command = Confinicky::CommandParser.new(line: line)
+        command = Confinicky::Parsers::Command.new(line: line)
         @lines << line if command.line?
         @exports << command.values_array if command.export?
         @aliases << command.values_array if command.alias?
@@ -117,27 +120,37 @@ module Confinicky
     end
 
     ##
-    # Returns the file path for the current instance of the shell file class.
-    def file_path
-      @file_path
-    end
-
-    ##
     # Returns a terminal table summarizing all known environment variables, otherwise
     # returns nil if no environment variables exist.
     def exports_table
-      return nil if @exports.length < 1
-      table = Terminal::Table.new(title: "Environment Variables", headings: ['Name', 'Value']) do |t|
-        for export in @exports
-          if export[1].length > 100
-            t.add_row [export[0], export[1][0...100]+"..."]
-          else
-            t.add_row export
+      make_table(title: "Environment Variables", rows: @exports)
+    end
+
+
+    ##
+    # Returns a terminal table summarizing all known aliases, otherwise
+    # returns nil if no aliases exist.
+    def aliases_table
+      make_table(title: "Aliases", rows: @aliases)
+    end
+
+    private
+
+      ##
+      # Returns a terminal table with a specified title and contents.
+      def make_table(title: '', rows: [])
+        return nil if rows.length < 1
+        table = Terminal::Table.new(title: title, headings: ['Name', 'Value']) do |t|
+          for row in rows
+            if row[1].length > 100
+              t.add_row [row[0], row[1][0...100]+"..."]
+            else
+              t.add_row row
+            end
           end
         end
+        return table
       end
-      return table
-    end
 
   end
 end

@@ -1,82 +1,85 @@
 module Confinicky
 
-  ##
-  # A simple class that parses a line of shell code to
-  # into a classified and attributed string.
-  class CommandParser
-
-    EXPORT_COMMAND = 'export'
-    ALIAS_COMMAND = 'alias'
+  module Parsers
 
     ##
-    # The name of the command.
-    attr_reader :name
+    # A simple class that parses a line of shell code to
+    # into a classified and attributed string.
+    class Command
 
-    ##
-    # The assigned value of the command.
-    attr_reader :value
-
-    ##
-    # Takes a line of code as a parameter and performs
-    # classification.
-    def initialize(line: nil)
-      @line = line
-      @current_command_type = EXPORT_COMMAND if export?
-      @current_command_type = ALIAS_COMMAND if alias?
-      process_attributes! unless line?
-    end
-
-    ##
-    # The command should be regarded as a general line of code that
-    # is of no interest if it doesn't match one of the supported
-    # command types.
-    def line?
-      !export? && !alias?
-    end
-
-    ##
-    # Returns true if the line of code matches an export command.
-    def export?
-      matches_command_type?(EXPORT_COMMAND) && has_expression?
-    end
-
-    ##
-    # Returns true if the line of code matches an alias command.
-    def alias?
-      matches_command_type?(ALIAS_COMMAND) && has_expression?
-    end
-
-    ##
-    # Returns an array containing the name / value pair for the command.
-    def values_array
-      [@name, @value]
-    end
-
-    private
+      EXPORT_COMMAND = 'export'
+      ALIAS_COMMAND = 'alias'
 
       ##
-      # Returns true if the command matches the specified type.
-      def matches_command_type?(command_type)
-        raise "No command type was specified." if command_type.nil?
-        return !(@line =~ /\A#{command_type} /).nil?
+      # The name of the command.
+      attr_reader :name
+
+      ##
+      # The assigned value of the command.
+      attr_reader :value
+
+      ##
+      # Takes a line of code as a parameter and performs
+      # classification.
+      def initialize(line: nil)
+        @line = line
+        @current_command_type = EXPORT_COMMAND if export?
+        @current_command_type = ALIAS_COMMAND if alias?
+        process_attributes! unless line?
       end
 
       ##
-      # Returns true if the command actually has an expression.
-      def has_expression?
-        split_command = @line.gsub(/\A#{@current_command_type} /,"").split("=")
-        return (split_command.length > 0 && !split_command[1].nil?)
+      # The command should be regarded as a general line of code that
+      # is of no interest if it doesn't match one of the supported
+      # command types.
+      def line?
+        !export? && !alias?
       end
 
       ##
-      # Parses the commands name and assigned values into attributes.
-      def process_attributes!
-        if !@current_command_type.nil?
-          attributes = @line.gsub(/\A#{@current_command_type} /,"").split("=")
-          @name = attributes[0]
-          @value = attributes[1].gsub(/\n/, "")
+      # Returns true if the line of code matches an export command.
+      def export?
+        matches_command_type?(EXPORT_COMMAND) && has_expression?
+      end
+
+      ##
+      # Returns true if the line of code matches an alias command.
+      def alias?
+        matches_command_type?(ALIAS_COMMAND) && has_expression?
+      end
+
+      ##
+      # Returns an array containing the name / value pair for the command.
+      def values_array
+        [@name, @value]
+      end
+
+      private
+
+        ##
+        # Returns true if the command matches the specified type.
+        def matches_command_type?(command_type)
+          raise "No command type was specified." if command_type.nil?
+          return !(@line =~ /\A#{command_type} /).nil?
         end
-      end
 
+        ##
+        # Returns true if the command actually has an expression.
+        def has_expression?
+          split_command = @line.gsub(/\A#{@current_command_type} /,"").split("=")
+          return (split_command.length > 0 && !split_command[1].nil?)
+        end
+
+        ##
+        # Parses the commands name and assigned values into attributes.
+        def process_attributes!
+          if !@current_command_type.nil?
+            attributes = @line.gsub(/\A#{@current_command_type} /,"").split("=")
+            @name = attributes[0]
+            @value = attributes[1].gsub(/\n/, "")
+          end
+        end
+
+    end
   end
 end
