@@ -13,20 +13,19 @@ command :list do |c|
       abort
     end
 
+    exports = Confinicky::Controllers::Exports.new
+    aliases = Confinicky::Controllers::Aliases.new
+
     if args.first.nil? || args.first == Confinicky::Arguments::ENVIRONMENT
-      path = Confinicky::ConfigurationFile.path_for_key(key: :env)
-      shell_file = Confinicky::ShellFile.new(file_path: path)
-      puts shell_file.exports_table unless shell_file.exports_table.nil?
-      say_ok "Identified #{shell_file.exports.length} exports in #{path}"
+      puts exports.to_table unless exports.to_table.nil?
+      say_ok "Identified #{exports.length} exports in #{exports.path}"
     end
 
     puts "" if args.first.nil?
 
     if args.first.nil? || args.first == Confinicky::Arguments::ALIAS
-      path = Confinicky::ConfigurationFile.path_for_key(key: :aliases)
-      shell_file = Confinicky::ShellFile.new(file_path: path)
-      puts shell_file.aliases_table unless shell_file.aliases_table.nil?
-      say_ok "Identified #{shell_file.aliases.length} aliases in #{path}"
+      puts aliases.to_table unless aliases.to_table.nil?
+      say_ok "Identified #{aliases.length} aliases in #{aliases.path}"
     end
   end
 end
