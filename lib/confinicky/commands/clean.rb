@@ -5,20 +5,34 @@ command :clean do |c|
   c.example 'description', 'cfy clean'
 
   c.action do |args, options|
-    if Confinicky::ShellFile.has_path?
-      say_error "Please set '#{Confinicky::FILE_PATH_VAR}' to point to your local configuration file."
-      puts "Try running 'cfy use' for more info."
+
+    # Abort if not yet setup.
+    if !Confinicky::ConfigurationFile.setup?
+      say_error "Confinicky's configuration is not valid or has not been setup."
+      puts "Try running 'cfy setup'."
       abort
     end
-    shell_file = Confinicky::ShellFile.new
-    duplicate_count = shell_file.find_duplicates.length
+
+    # Abort if missing arguments.
+    if args.length < 1
+      say_error "You must specify environment `cfy clean env` or aliases `cfy clean alias`."
+      abort
+    end
+
+    # Use the appropriate command group controller.
+    command = args[0]
+    command_group = Confinicky::Controllers::Exports.new if command == Confinicky::Arguments::ENVIRONMENT
+    command_group = Confinicky::Controllers::Aliases.new if command == Confinicky::Arguments::ALIAS
+
+    duplicate_count = command_group.duplicates.length
     say_ok "Your file is clean. No processing was required." and abort if duplicate_count < 1
 
     if agree "Backup your existing file before continuuing? (y/n)"
-      say_ok "Backup saved to: "+Confinicky::ShellFile.backup!
+      say_ok "Backup saved to: "+command_group.backup!
     end
 
-    shell_file.clean!
+    command_group.clean!
     say_ok "Your file is clean. #{duplicate_count} duplicate statements have been reduced."
+
   end
 end
