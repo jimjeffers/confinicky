@@ -8,7 +8,11 @@ module Confinicky
 
     ##
     # The alias commands stored in the shell file.
-    attr_reader :aliases
+    attr_accessor :aliases
+
+    ##
+    # A list of all exports in the shell file.
+    attr_accessor :exports
 
     ##
     # The preserved lines of code from the shell file which confinicky
@@ -28,42 +32,27 @@ module Confinicky
       @lines = []
 
       file = File.new(@file_path, "r")
+      command = nil
 
       while (line = file.gets)
-        command = Confinicky::Parsers::Command.new(line: line)
+        if !command.nil? && command.open?
+          command.append line
+        else
+          command = Confinicky::Parsers::Command.new(line: line)
+        end
+
         @lines << line if command.line?
-        @exports << command.values_array if command.export?
-        @aliases << command.values_array if command.alias?
+        @exports << command.values_array if command.export? and command.closed?
+        @aliases << command.values_array if command.alias? and command.closed?
       end
 
       file.close()
     end
 
     ##
-    # Detects duplicate definitions.
-    def find_duplicates
-      duplicates = {}
-      @exports.each do |export|
-        duplicates[export[0]] = (duplicates[export[0]].nil?) ? 1 : duplicates[export[0]]+1
-      end
-      duplicates.delete_if { |key,value| value==1}.sort_by{|key,value| value}.reverse
-    end
-
-    ##
     # Returns a list of all exports in alphanumeric order.
     def exports
       @exports.sort { |x, y| x[0] <=> y[0] }
-    end
-
-    ##
-    # Finds duplicate export statements and replaces them with the actual
-    # value from the environment.
-    def clean!
-      for duplicate in find_duplicates.map{|duplicate| duplicate[0]}
-        @exports.delete_if{ |i| i[0] == duplicate}
-        @exports << [duplicate, ENV[duplicate]]
-      end
-      write!
     end
 
     ##
@@ -75,65 +64,17 @@ module Confinicky
     end
 
     ##
-    # Parses an assignment such as "MY_VAR=1234" and injects it into
-    # the exports or updates an existing variable if possible.
-    def set!(assignment)
-      assignment = assignment.split("=")
-      return false if assignment.length < 2
-      remove! assignment[0]
-      assignment[1] = "\'#{assignment[1]}\'" if assignment[1] =~ /\s/
-      @exports << assignment
-    end
-
-    ##
-    # Removes an environment variable if it exists.
-    def remove!(variable_name)
-      @exports.delete_if { |i| i[0] == variable_name }
-    end
-
-    ##
     # Writes a new version of the configuration file.
     def write!
       File.open(@file_path, "w") do |f|
         for line in @lines
           f.write line
         end
-        f.puts @exports.map{|e| "export #{e.join("=")}"}.join("\n")
+        f.puts @exports.map{|e| "export #{e.join("=")}"}.join("\n") if !@exports.nil? and @exports.length > 0
+        f.puts @aliases.map{|a| "alias #{a.join("=")}"}.join("\n") if !@aliases.nil? and @aliases.length > 0
       end
+      true
     end
-
-    ##
-    # Returns a terminal table summarizing all known environment variables, otherwise
-    # returns nil if no environment variables exist.
-    def exports_table
-      make_table(title: "Environment Variables", rows: @exports)
-    end
-
-
-    ##
-    # Returns a terminal table summarizing all known aliases, otherwise
-    # returns nil if no aliases exist.
-    def aliases_table
-      make_table(title: "Aliases", rows: @aliases)
-    end
-
-    private
-
-      ##
-      # Returns a terminal table with a specified title and contents.
-      def make_table(title: '', rows: [])
-        return nil if rows.length < 1
-        table = Terminal::Table.new(title: title, headings: ['Name', 'Value']) do |t|
-          for row in rows
-            if row[1].length > 100
-              t.add_row [row[0], row[1][0...100]+"..."]
-            else
-              t.add_row row
-            end
-          end
-        end
-        return table
-      end
 
   end
 end
