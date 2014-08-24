@@ -7,12 +7,15 @@ command :list do |c|
   c.example 'aliases', 'cfy list alias'
 
   c.action do |args, options|
+
+    # Abort if not yet setup.
     if !Confinicky::ConfigurationFile.setup?
       say_error "Confinicky's configuration is not valid or has not been setup."
       puts "Try running 'cfy setup'."
       abort
     end
 
+    # Use the appropriate command group controller.
     exports = Confinicky::Controllers::Exports.new
     aliases = Confinicky::Controllers::Aliases.new
 
@@ -27,6 +30,7 @@ command :list do |c|
       puts aliases.to_table unless aliases.to_table.nil?
       say_ok "Identified #{aliases.length} aliases in #{aliases.path}"
     end
+
   end
 end
 
