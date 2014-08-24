@@ -19,6 +19,16 @@ module Confinicky
         @shell_file.write!
       end
 
+      ##
+      # Finds duplicate export statements and replaces them with the actual
+      # value from the environment.
+      def clean!
+        for duplicate in duplicates.map{|duplicate| duplicate[0]}
+          @commands.delete_if{ |i| i[0] == duplicate}
+          @commands << [duplicate, ENV[duplicate]]
+        end
+      end
+
     end
 
   end

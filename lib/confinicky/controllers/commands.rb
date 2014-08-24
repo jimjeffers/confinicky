@@ -47,18 +47,31 @@ module Confinicky
       end
 
       ##
-      # Finds duplicate export statements and replaces them with the actual
-      # value from the environment.
+      # Finds duplicate export statements and reduces them to the
+      # most recent statement.
       def clean!
         for duplicate in duplicates.map{|duplicate| duplicate[0]}
-          @commands.delete_if{ |i| i[0] == duplicate}
-          @commands << [duplicate, ENV[duplicate]]
+          last_value = @commands.find_all{|c| c[0] =~ /^#{duplicate}/ }.last
+          @commands.delete_if{ |c| c[0] == duplicate}
+          @commands << [duplicate, last_value]
         end
       end
 
       ##
       # Parses an assignment such as "MY_VAR=1234" and injects it into
       # the exports or updates an existing variable if possible.
+      #
+      # ==== Attributes
+      #
+      # * +assignment+ - The value which will be assigned to the command.
+      #
+      # ==== Examples
+      #
+      #   # Create or update an environment variable called MY_VAR.
+      #   Exports.new.set("MY_VAR=A short phrase.")
+      #
+      #   # Create or update an environment variable called MY_VAR.
+      #   Aliases.new.set("home=cd ~")
       def set!(assignment)
         assignment = assignment.split("=")
         return false if assignment.length < 2
