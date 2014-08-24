@@ -21,6 +21,16 @@ module Confinicky
 
       ##
       # Matches a given string against the names of the group's contents.
+      #
+      # ==== Attributes
+      #
+      # * +query+ - The string used to match a given command name.
+      #
+      # ==== Examples
+      #
+      #   # Find the PATH environment variable.
+      #   Exports.new.find("PATH")
+      #   # => {name: "PATH", value: "/Users/name/bin/"}
       def find(query: nil)
         match = @commands.find{|command| command[0] =~ /^#{query}/ }
         {name: match[0], value: match[1]} unless match.nil?
@@ -90,6 +100,25 @@ module Confinicky
       ##
       # Returns a table for the contents of a specific variable when split
       # by a specified separating string.
+      #
+      # ==== Attributes
+      #
+      # * +name+ - The name of the variable, alias, etc., to inspect.
+      # * +separator+ - A string used to split the value. Defaults to a ':'.
+      #
+      # ==== Examples
+      #
+      #   # Create or update an environment variable called MY_VAR.
+      #   Exports.inspect("PATH")
+      #   # +--------+-----------------------------------------------------------+
+      #   # |                           Values in PATH                           |
+      #   # +--------+-----------------------------------------------------------+
+      #   # | index  | value                                                     |
+      #   # +--------+-----------------------------------------------------------+
+      #   # | 1      | /Users/name/.rvm/gems/ruby-2.1.2/bin                      |
+      #   # | 2      | /Users/name/.rvm/gems/ruby-2.1.2@global/bin               |
+      #   # | 3      | /Users/name/.rvm/rubies/ruby-2.1.2/bin                    |
+      #   # +--------+-----------------------------------------------------------+
       def inspect(name: nil, separator:":")
         return nil if (match = find(query: name)).nil?
         count = 0
@@ -101,6 +130,26 @@ module Confinicky
 
         ##
         # Returns a terminal table with a specified title and contents.
+        #
+        # ==== Attributes
+        #
+        # * +title+ - A string to be printed out as the title.
+        # * +rows+ - An array of sub arrays +[[name, value],[name, value],...]+
+        # * +headings+ - An array of strings for heading titles +['Name', 'Value']+
+        #
+        # ==== Examples
+        #
+        #   # Create or update an environment variable called MY_VAR.
+        #   Exports.inspect("PATH")
+        #   # +--------+-----------------------------------------------------------+
+        #   # |                           [title]                                  |
+        #   # +--------+-----------------------------------------------------------+
+        #   # | Name   | Value                                                     |
+        #   # +--------+-----------------------------------------------------------+
+        #   # | PATH   | '/Users/name/.rvm/gems/ruby-2.1.2/bin:/Users/name/.rvm... |
+        #   # | FOO    | 3000                                                      |
+        #   # | BAR    | 'some other value'                                        |
+        #   # +--------+-----------------------------------------------------------+
         def make_table(title: '', rows: [], headings: ['Name', 'Value'])
           return nil if rows.length < 1
           table = Terminal::Table.new(title: title, headings: headings) do |t|
