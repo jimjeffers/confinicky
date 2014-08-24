@@ -6,17 +6,39 @@ command :duplicates do |c|
 
   c.action do |args, options|
 
-    if Confinicky::ShellFile.has_path?
-      say_error "Please set '#{Confinicky::FILE_PATH_VAR}' to point to your local configuration file."
-      puts "Try running 'cfy use' for more info."
+    # Abort if not yet setup.
+    if !Confinicky::ConfigurationFile.setup?
+      say_error "Confinicky's configuration is not valid or has not been setup."
+      puts "Try running 'cfy setup'."
       abort
     end
 
-    shell_file = Confinicky::ShellFile.new
-    duplicates = shell_file.find_duplicates.map{|key, value| [key, value]}
-    table = Terminal::Table.new :rows => duplicates
-    puts table
-    say_ok "Identified #{duplicates.length} variables with multiple 'export' statements in #{Confinicky::ShellFile.file_path}"
-    puts "Run 'confinicky clean' to reduce these statements."
+    # Abort if missing arguments.
+    if args.length < 1
+      say_error "You must specify environment `cfy duplicates env` or aliases `cfy duplicates alias`."
+      abort
+    end
+
+    # Use the appropriate command group controller.
+    command = args[0]
+    command_group = Confinicky::Controllers::Exports.new if command == Confinicky::Arguments::ENVIRONMENT
+    command_group = Confinicky::Controllers::Aliases.new if command == Confinicky::Arguments::ALIAS
+
+    # Print out any duplicates.
+    duplicates = command_group.duplicates.map{|key, value| [key, value]}
+
+    if duplicates.length > 0
+      table = Terminal::Table.new :rows => duplicates
+      puts table
+      if command == Confinicky::Arguments::ENVIRONMENT
+        say_ok "Identified #{duplicates.length} variables with multiple 'export' statements in #{command_group.path}"
+      elsif command == Confinicky::Arguments::ALIAS
+        say_ok "Identified #{duplicates.length} alias statements in #{command_group.path}"
+      end
+      puts "Run 'confinicky clean' to reduce these statements."
+    else
+      puts "No duplicate statements found."
+    end
+
   end
 end
