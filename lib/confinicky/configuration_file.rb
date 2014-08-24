@@ -47,12 +47,18 @@ module Confinicky
       File.exists?(self.get_configuration[:files][:aliases])
     end
 
+    ##
+    # Forces a configuration, primarily for testing purposes.
+    def self.force_config!(configuration)
+      @@configuration = configuration
+    end
+
     private
 
       ##
       # Raises an error if a specified key is not supported.
       def self.raise_if_key_not_supported(key)
-        raise "Unsupported key supplied to configuration." unless SUPPORTED_KEYS.include?(key)
+        raise "Unsupported key supplied to configuration: "+key.to_s unless SUPPORTED_KEYS.include?(key)
       end
 
       ##
