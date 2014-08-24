@@ -28,7 +28,7 @@ command :set do |c|
     # Abort if duplicate commands have been found.
     if command_group.duplicates.length > 0
       say_error "Your configuration cannot be managed because it currently has duplicate statements."
-      puts "You must run 'cfy clean' before you can manage your configuration."
+      puts "You must run 'cfy clean #{command}' before you can manage your configuration."
       abort
     end
 
