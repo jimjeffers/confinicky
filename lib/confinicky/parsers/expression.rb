@@ -69,6 +69,7 @@ module Confinicky
         quote = uses_double_quotes? ? "\"" : "\'"
         value = extracted_value
         value =  "#{quote}#{value}#{quote}" if !value.nil? && value =~ /\s/ && value != "\n"
+        value
       end
 
       protected
