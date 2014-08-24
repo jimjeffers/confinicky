@@ -58,8 +58,8 @@ module Confinicky
     ##
     # Copies the current shell file to a temporary location.
     def backup!
-      backup_name = Confinicky::ShellFile.file_path+Time.now.getutc.to_i.to_s+".bak.tmp"
-      FileUtils.cp(Confinicky::ShellFile.file_path, backup_name)
+      backup_name = @file_path+Time.now.getutc.to_i.to_s+".bak.tmp"
+      FileUtils.cp(@file_path, backup_name)
       backup_name
     end
 
