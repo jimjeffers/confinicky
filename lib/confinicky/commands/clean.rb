@@ -31,8 +31,12 @@ command :clean do |c|
       say_ok "Backup saved to: "+command_group.backup!
     end
 
-    command_group.clean!
-    say_ok "Your file is clean. #{duplicate_count} duplicate statements have been reduced."
+    if command_group.clean! && command_group.save!
+      say_ok "Your file is clean. #{duplicate_count} duplicate statements have been reduced."
+    else
+      say_error "There was a problem cleaning the file."
+      puts "Please try editing it manually: #{command_group.path}"
+    end
 
   end
 end
