@@ -6,8 +6,8 @@ class TestCommandGroups < MiniTest::Test
   def setup
     Confinicky::ConfigurationFile.force_config!({
       files: {
-        aliases: "test/sample_bash_file.sh.tmp",
-        env: "test/sample_bash_file.sh.tmp"
+        aliases: "test/sample_bash_file.sh",
+        env: "test/sample_bash_file.sh"
       }
     })
     @aliases = Confinicky::Controllers::Aliases.new
