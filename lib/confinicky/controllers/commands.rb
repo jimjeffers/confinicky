@@ -70,6 +70,12 @@ module Confinicky
       end
 
       ##
+      # Creates a copy of the associated shell file.
+      def backup!
+        @shell_file.backup!
+      end
+
+      ##
       # The total number of commands managed by the controller.
       def length
         @commands.length
