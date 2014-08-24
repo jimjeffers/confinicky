@@ -1,8 +1,9 @@
 command :set do |c|
   c.syntax = 'cfy set'
-  c.summary = 'Sets an environment variable in your configuration file.'
+  c.summary = 'Sets an alias or environment variable in your configuration.'
   c.description = ''
-  c.example 'Set an environment variable.', 'cfy set export MY_VAR="some value"'
+  c.example 'Set an environment variable', 'cfy set export MY_VAR="some value"'
+  c.example 'Set an environment alias', 'cfy set alias home="cd ~"'
 
   c.action do |args, options|
 
