@@ -25,6 +25,14 @@ command :set do |c|
     command_group = Confinicky::Controllers::Exports.new if command == Confinicky::Arguments::ENVIRONMENT
     command_group = Confinicky::Controllers::Aliases.new if command == Confinicky::Arguments::ALIAS
 
+    # Do we have whitespace that needs to be merged?
+    # This resolves some basic commands that should be
+    # wrapped in quotes.
+    if args.length > 2
+      args.shift
+      expression = args.join " "
+    end
+
     # Abort if duplicate commands have been found.
     if command_group.duplicates.length > 0
       say_error "Your configuration cannot be managed because it currently has duplicate statements."
@@ -34,7 +42,7 @@ command :set do |c|
 
     # Set the variable and save changes to disk.
     if command_group.set!(expression) and command_group.save!
-      say_ok "Successfully set '#{args.first}'."
+      say_ok "Successfully set '#{expression}'."
       puts "Open a new terminal/shell window for these changes to take affect."
     else
       say_error "Could not set '#{expression}' please double check to ensure you used the appropriate syntax."
