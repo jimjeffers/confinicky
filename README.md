@@ -6,17 +6,41 @@ Run `cfy --help` for a current list of useable commands.
 
 ## Setup Confinicky
 
-First, install the gem: 
+First, install the gem:
 
 ```
 → gem install confinicky
 ```
 
-Next, setup confinicky to use your `.bashrc`, `.bash_profile`, or my personal favorite, an external file just for environment variables that you source in your bash_profile. For example I keep mine in a file called `env` and then run `source env` in my `.bash_profile`.
+Next, setup confinicky to use a dedicated file for your aliases and environment variables.  Confinicky will use `~/aliases` and `~/env` by default. You'll then want to source these documents in your `.bash_profile` or `.bashrc` files:
 
 ```
-→ cfy use /Users/jim/bin/dotfiles/bash/env
-Set CONFINICKY_FILE_PATH to /Users/jim/bin/dotfiles/bash/env
+→ cfy setup
++---------+--------------------+
+|        Configuration         |
++---------+--------------------+
+| type    | path               |
++---------+--------------------+
+| aliases | /Users/me/aliases |
+| env     | /Users/me/env     |
++---------+--------------------+
+
+What file do you want to store your environment vars in?
+(leave blank to keep current)
+
+Created file at: /Users/me/env
+
+What file do you want to store your aliases in?
+(leave blank to keep current)
+
+Created file at: /Users/me/aliases
+
+Wrote the following configuration to:
+/Users/me/.Confinicky
+
+Be sure to add the following lines to your ~/.bash_profile or ~/.bashrc files:
+. /Users/me/env
+. /Users/me/aliases
 ```
 
 ## Listing Environment Variables
@@ -51,7 +75,7 @@ Successfully set 'DOCKER_HOST=tcp://192.168.59.103:2375'.
 Run 'source /Users/jim/bin/dotfiles/bash/env' or open a new terminal/shell window.
 ```
 
-## Removing an Environment Variable 
+## Removing an Environment Variable
 
 You can easily add or adjust an environment variable using `cfy remove` or `cfy rm`.
 
