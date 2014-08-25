@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="904px" height="497px" viewBox="0 0 904 497" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <!-- Generator: Sketch 3.0.4 (8053) - http://www.bohemiancoding.com/sketch -->
+    <title>Untitled 2</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="Group" sketch:type="MSLayerGroup" transform="translate(1.000000, 1.000000)">
+            <path d="M105.327463,103.23192 L105.327463,453.403522 L793.666689,453.403522 L793.666689,103.23192 L793.666689,8.51858201 C793.666689,3.549052 789.645935,-0.479548053 784.664201,-0.479548053 L114.329951,-0.479548053 C109.358014,-0.479548053 105.327463,3.54890646 105.327463,8.51858201 L105.327463,103.23192 Z" id="Rectangle-1" stroke="#BCB7AC" fill="#2B2720" sketch:type="MSShapeGroup"></path>
+            <rect id="Rectangle-5" stroke="#BCB7AC" fill="#000000" sketch:type="MSShapeGroup" x="126.3684" y="29.5789334" width="649.2632" height="435.847981"></rect>
+            <rect id="Rectangle-3" stroke="#BCB7AC" fill="#2B2720" sketch:type="MSShapeGroup" x="0.122777953" y="450.397674" width="901.754444" height="30.0584815"></rect>
+            <rect id="Rectangle-6" fill="#BCB7AC" sketch:type="MSShapeGroup" x="847.771955" y="462.421067" width="24.0467852" height="6.01169629"></rect>
+            <path d="M0.122777953,479.450307 L13.414171,495.429594 L885.284698,495.429594 L901.877222,479.450307 L0.122777953,479.450307 Z" id="Rectangle-4" stroke="#BCB7AC" fill="#2B2720" sketch:type="MSShapeGroup"></path>
+            <ellipse id="Oval-1" stroke="#BCB7AC" fill="#333333" sketch:type="MSShapeGroup" cx="449.497076" cy="16.0526168" rx="4.50877222" ry="4.50877222"></ellipse>
+        </g>
+    </g>
+</svg>

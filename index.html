@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap 101 Template</title>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+
+    <!-- Custom -->
+    <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,900' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="container text-center">
+
+    <header class="col-sm-8 col-sm-offset-2 col-lg-6 col-lg-offset-3">
+      <h1>&gt; confinicky</h1>
+      <h2 class="subtitle">A ruby gem to manage your shell.</h2>
+      <p><strong>Confinicky provides you with a CLI for performing basic CRUD operations on your export and alias commands.</strong></p>
+      <a role="button" class="btn btn-default" href="https://github.com/jimjeffers/confinicky">View on Github</a>
+    </header>
+
+    <div class="demo hidden-xs col-sm-12">
+      <video id="demo-movie" width="675" height="450" autoplay="autoplay" preload loop>
+        <source src="confinicky.mp4" />
+      </video>
+      <img src="laptop.svg" width="100%" height="54%">
+    </div>
+
+    <div class="col-sm-8 col-sm-offset-2 col-lg-6 col-lg-offset-3">
+
+      <section class="tip">
+        <h3>installation</h3>
+        <p class="example">gem install confinicky</p>
+        <p>Confinicky works with Ruby 2.0+</p>
+      </section>
+
+      <section class="tip">
+        <h3>setup</h3>
+        <p class="example">cfy setup</p>
+        <p>Setting up confinicky is easy. Specify a file to store your aliases and another for environment variables. These can be stored in the same file or even your .bashrc if you'd like.</p>
+        <p><em>For organizational purposes I recommend using two dedicated files and sourcing them in your .bashrc file.</em></p>
+      </section>
+
+      <section class="tip">
+        <h3>set a variable / alias</h3>
+        <p class="example">cfy set env FOO=bar</p>
+        <p class="example">cfy set alias home='cd ~'</p>
+        <p>Setting a value will create a new entry or update an existing definition with the value you assign.</p>
+      </section>
+
+      <section class="tip">
+        <h3>remove a variable / alias</h3>
+        <p class="example">cfy rm env FOO</p>
+        <p class="example">cfy rm alias home</p>
+      </section>
+
+      <section class="tip">
+        <h3>list  variables / aliases </h3>
+        <p class="example">cfy list</p>
+        <p class="example">cfy ls env</p>
+        <p class="example">cfy ls alias</p>
+        <p>Specify a type to only show vars or aliases.</p>
+      </section>
+
+      <section class="tip">
+        <h3>inspect a variable</h3>
+        <p class="example">cfy inspect PATH</p>
+        <p>Have a long path variable? Use the inspect method to print a table of every value it contains.</p>
+      </section>
+
+      <section class="tip">
+        <h3>clean your configuration</h3>
+        <p class="example"> cfy clean env</p>
+        <p>Confinicky will reduce duplicate statements so that it can properly perform CRUD operations on your document.</p>
+      </section>
+
+      <footer>
+        <h2>&gt; confinicky</h2>
+        <p>Ruby gem and this website by <a href="http://jimjeffers.com">Jim Jeffers</a>.</p>
+      </footer>
+    </div>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+  </body>
+</html>
