@@ -7,8 +7,16 @@ body {
 h1,
 footer h2,
 h3 {
-  color: #AEFF04;
+  color: #24D91A;
   font-weight: 900;
+}
+
+p {
+  font-weight: 600;
+}
+
+em {
+  font-weight: 300;
 }
 
 h1 {
@@ -58,8 +66,8 @@ footer {
 
 .btn-default {
   background: #2B2720;
-  border-color: #AEFF04;
-  color: #AEFF04;
+  border-color: #24D91A;
+  color: #24D91A;
 }
 
 @media (max-width: 768px) {
@@ -69,6 +77,7 @@ footer {
 
 @media (min-width: 992px) {
   #demo-movie { -webkit-transform: scale(0.91); }
+  p { font-size: 1.25em; }
 }
 
 @media (min-width: 1200px) {
